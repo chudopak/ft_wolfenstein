@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_2dmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/22 18:01:34 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/27 18:11:53 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/02/05 18:51:53 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,50 @@ int		get_new_frame(t_all *all)
 	if (all->player.mv_check == 1)
 	{
 		increment(all);
-		if (all->parsed.map[(int)all->player.i][(int)all->player.j] == '1'
-				|| all->parsed.map[(int)all->player.i][(int)all->player.j] == '2')
+		if ((check_wall(all)) == 1)
 			decrement(all);
 		else
 		{
-			draw_player(all);
 			decrement(all);
 			draw_empty(all);
 			increment(all);
-			mlx_put_image_to_window(all->vars.mlx, all->vars.win, all->img.img, 0, 0);
-		}
-		all->player.mv_check = 0;		
+		}		
 	}
+	if (all->player.ray_mv_check == 1)
+	{
+		ft_clean_rays(all);
+		ft_cast_rays(all);
+		draw_player(all);
+	}
+	mlx_put_image_to_window(all->vars.mlx, all->vars.win, all->img.img, 0, 0);
+	all->player.mv_check = 0;
 	return (0);
+}
+
+void	ft_cast_rays(t_all *all)
+{
+	t_pl	ray;
+
+	ray 		= all->player;
+	ray.i		+= SCALE / 2 + 1;
+	ray.j		+= SCALE / 2 + 1;
+	ray.start	= ray.dir - VIEV_ANGLE;
+	ray.end		= ray.dir + VIEV_ANGLE;
+	while (ray.start <= ray.end)
+	{
+		ray.i = all->player.i + SCALE / 2 + 1;
+		ray.j = all->player.j + SCALE / 2 + 1;
+		while (all->parsed.map[(int)ray.i / SCALE][(int)ray.j / SCALE] != '1'
+				&& all->parsed.map[(int)ray.i / SCALE][(int)ray.j / SCALE] != '2'
+				&& all->parsed.map[(int)ray.i / SCALE][(int)ray.j / SCALE] != ' '
+				&& all->parsed.map[(int)ray.i / SCALE][(int)ray.j / SCALE] != '\0')
+		{
+			ray.i += cos(ray.start);
+			ray.j += sin(ray.start);
+			pixel_put(&all->img, ray.i, ray.j, RAY);
+		}
+		ray.start += M_PI_2 / 100;
+	}
 }
 
 void	get_picture(t_parse parsed)

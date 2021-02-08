@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_init.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 17:39:28 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/26 18:29:43 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/02/02 20:11:11 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ t_pl	player_init(t_data *img, int i, int j)
 {
 	t_pl	player;
 
-	player.i = (float)i;
-	player.j = (float)j;
-	increase_part_wall(img, i * 20, j * 20, 0x00FF00FF, 20);
+	player.i = (float)i * SCALE;
+	player.j = (float)j * SCALE;
+	player.dir = ANGLE;
+	player.mv_check = 2;
+	increase_part_wall(img, player.i, player.j, PL, SCALE);
 	return (player);
 }

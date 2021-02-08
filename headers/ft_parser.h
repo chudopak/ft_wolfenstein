@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:11:26 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/25 16:14:45 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/02/08 19:52:15 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct		s_player {
 	int				i;
 	int				j;
 	int				rows;
+	char			start_angle;
 }					t_player;
 
 typedef struct		s_parse {
