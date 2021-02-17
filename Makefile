@@ -12,9 +12,9 @@ PARSER = ./parser/ft_parser.c \
 CUB2D = ./cub2d/get_2dmap.c ./cub2d/move_player.c ./cub2d/print_map.c ./cub2d/increase_part_wall.c \
 		./cub2d/player_init.c ./cub2d/auxiliary.c
 
-UTILS = ./utils/pixel_put.c ./utils/validation.c
+UTILS = ./utils/pixel_put.c ./utils/validation.c ./utils/set_player.c
 
-BASE = ./base/cub3d.c
+BASE = ./base/cub3d.c ./base/new_frame.c ./base/moving.c
 
 FLAGS = -Wall -Wextra -Werror -g -framework OpenGL -framework Appkit
 

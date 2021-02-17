@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 19:02:09 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/05 18:52:08 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:32:52 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	ft_clean_rays(t_all *all)
 	ray			= all->player;
 	ray.old_i	+= SCALE / 2 + 1;
 	ray.old_j	+= SCALE / 2 + 1;
-	ray.start	= ray.old_dir - VIEV_ANGLE;
+	ray.start_agl	= ray.old_dir - VIEV_ANGLE;
 	ray.end		= ray.old_dir + VIEV_ANGLE;
-	while (ray.start <= ray.end)
+	while (ray.start_agl <= ray.end)
 	{
 		ray.old_i = all->player.old_i + SCALE / 2 + 1;
 		ray.old_j = all->player.old_j + SCALE / 2 + 1;
@@ -82,10 +82,10 @@ void	ft_clean_rays(t_all *all)
 				&& all->parsed.map[(int)ray.old_i / SCALE][(int)ray.old_j / SCALE] != ' '
 				&& all->parsed.map[(int)ray.old_i / SCALE][(int)ray.old_j / SCALE] != '\0')
 		{
-			ray.old_i += cos(ray.start);
-			ray.old_j += sin(ray.start);
+			ray.old_i += cos(ray.start_agl);
+			ray.old_j += sin(ray.start_agl);
 			pixel_put(&all->img, ray.old_i, ray.old_j, EMPT);
 		}
-		ray.start += M_PI_2 / 100;
+		ray.start_agl += M_PI_2 / 5;
 	}
 }

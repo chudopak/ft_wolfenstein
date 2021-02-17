@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 18:31:04 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/08 19:52:51 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/16 21:32:08 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,10 @@ void	check_for_player(t_parse *parsed, char symb, int i, int j)
 		parsed->p_coord.j = j;
 		parsed->p_coord.start_angle = symb;
 	}
+}
+
+void	coloms_size(t_parse *parsed, int current_str_len)
+{
+	if (parsed->p_coord.coloms < current_str_len)
+		parsed->p_coord.coloms = current_str_len;
 }

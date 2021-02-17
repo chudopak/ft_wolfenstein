@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 16:50:49 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/21 18:00:35 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/02/16 21:33:00 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ static int	get_map(t_parse *parsed, char *data, int rows)
 		{
 			parsed->map[i][j] = *(data + j);
 			check_for_player(parsed, *(data + j), i, j);
+			coloms_size(parsed, j);
 		}
 		parsed->map[i][j] = '\0';
 		data += j + 1;

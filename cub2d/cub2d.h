@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 16:03:07 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/04 22:15:32 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:28:36 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 # define CUB2D_H
 
 # define SCALE 20
-# define MOVE 4
+//# define MOVE 4
 # define EMPT 0x11FFBBFF
 # define PL 0x00FF00FF
 # define SPRITE 0x0000BB10
-# define WALL 0x00FFBB15
+//# define WALL 0x00FFBB15
 # define RAY 0x0099BB99
 # define ANGLE M_PI
 # define MV_ANGLE 0.1
-# define VIEV_ANGLE M_PI / 4
+//# define VIEV_ANGLE M_PI / 4
 
 void	get_picture(t_parse parsed);
 void	increase_part_wall(t_data *img, float width, float height, unsigned int color, int size);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:42:29 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/25 16:18:20 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/02/16 21:29:33 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static t_parse	fill_struct(void)
 	parsed.p_coord.i = -1;
 	parsed.p_coord.j = -1;
 	parsed.p_coord.rows = -1;
+	parsed.p_coord.coloms = 0;
 	return (parsed);
 }
 

@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/26 16:34:39 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/02 21:33:34 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/12 19:25:58 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		move_player(int keycode, t_all *all)
 	else if (keycode == 124)
 	{
 		all->player.old_dir = all->player.dir;
-		all->player.ray_mv_check = 1;
+		all->player.mv_check = 1;
 		all->player.dir -= MV_ANGLE;
 		all->player.old_i = all->player.i;
 		all->player.old_j = all->player.j;
@@ -57,7 +57,7 @@ int		move_player(int keycode, t_all *all)
 	else if (keycode == 123)
 	{
 		all->player.old_dir = all->player.dir;
-		all->player.ray_mv_check = 1;
+		all->player.mv_check = 1;
 		all->player.dir += MV_ANGLE;
 		all->player.old_i = all->player.i;
 		all->player.old_j = all->player.j;

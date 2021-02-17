@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:11:26 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/08 19:52:15 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/16 21:32:32 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct		s_player {
 	int				i;
 	int				j;
 	int				rows;
+	int				coloms;
 	char			start_angle;
 }					t_player;
 
@@ -66,5 +67,6 @@ int					ft_parse_map(t_parse *parsed, char **data);
 int					check_string(char *data);
 void				check_for_player(t_parse *parsed, char symb, int i, int j);
 void				flood_fill(char **map, int i, int j, t_parse *parsed);
+void				coloms_size(t_parse *parsed, int current_str_len);
 
 #endif
