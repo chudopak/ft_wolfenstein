@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:42:29 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/16 21:29:33 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/27 22:35:28 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static t_parse	fill_struct(void)
 	parsed.p_coord.j = -1;
 	parsed.p_coord.rows = -1;
 	parsed.p_coord.coloms = 0;
+	parsed.amt_spr = 0;
 	return (parsed);
 }
 

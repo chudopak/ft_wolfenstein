@@ -6,44 +6,98 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:49:13 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/16 21:24:26 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/27 22:26:08 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/overall.h"
 
+static void	check_near_wall(t_all *all)
+{
+	if (all->parsed.map[(int)(all->player.i - STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.')
+		all->player.i = (int)(all->player.i - STOP_BF_WALL / 1.01 + 1) + STOP_BF_WALL / 1.01;
+	if (all->parsed.map[(int)(all->player.i + STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.')
+		all->player.i = (int)(all->player.i + STOP_BF_WALL / 1.01) - STOP_BF_WALL / 1.01;
+	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j - STOP_BF_WALL / 1.01)] != '.')
+		all->player.j = (int)(all->player.j - STOP_BF_WALL / 1.01 + 1) + STOP_BF_WALL / 1.01;
+	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j + STOP_BF_WALL / 1.01)] != '.')
+		all->player.j = (int)(all->player.j + STOP_BF_WALL / 1.01) - STOP_BF_WALL / 1.01;
+}
+
 static void	mv_left_right(t_all *all, int way_direction)
 {
-	double	step_i;
-	double	step_j;
+	float	limit_i;
+	float	limit_j;
 
-	step_i = STEP_TO_WALL * cos(all->player.dir) * way_direction;
-	step_j = STEP_TO_WALL * sin(all->player.dir) * way_direction;
-	all->player.i += step_i;
-	all->player.j += step_j;
-	if (all->parsed.map[(int)(all->player.i + step_i)][(int)(all->player.j + step_j)] == '1'
-			|| all->parsed.map[(int)(all->player.i + step_i)][(int)(all->player.j + step_j)] == '2')
+	limit_i = 0;
+	limit_j = 0;
+	all->player.move.step_i = STEP_L_R * cos(all->player.dir) * way_direction;
+	all->player.move.step_j = STEP_L_R * sin(all->player.dir) * way_direction;
+	all->player.i += all->player.move.step_i;
+	if (all->player.move.step_i < 0)
 	{
-		all->player.i -= step_i;
-		all->player.j -= step_j;
+		limit_i = -STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+			all->player.i = (int)(all->player.i + limit_i + 1) - limit_i;
 	}
+	else if (all->player.move.step_i > 0)
+	{
+		limit_i = STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+			all->player.i = (int)(all->player.i + limit_i) - limit_i;
+	}
+	all->player.j += all->player.move.step_j;
+	if (all->player.move.step_j < 0)
+	{
+		limit_j = -STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+			all->player.j = (int)(all->player.j + limit_j + 1) - limit_j;
+	}
+	else if (all->player.move.step_j > 0)
+	{
+		limit_j = STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+			all->player.j = (int)(all->player.j + limit_j) - limit_j;
+	}
+	check_near_wall(all);
 }
 
 static void	mv_foward_back(t_all *all, int way_direction)
 {
-	double	step_i;
-	double	step_j;
+	float	limit_i;
+	float	limit_j;
 
-	step_i = STEP_TO_WALL * (-sin(all->player.dir)) * way_direction;
-	step_j = STEP_TO_WALL * cos(all->player.dir) * way_direction;
-	all->player.i += step_i;
-	all->player.j += step_j;
-	if (all->parsed.map[(int)(all->player.i + step_i)][(int)(all->player.j + step_j)] == '1'
-			|| all->parsed.map[(int)(all->player.i + step_i)][(int)(all->player.j + step_j)] == '2')
+	limit_i = 0;
+	limit_j = 0;
+	all->player.move.step_i = STEP_TO_WALL * (-sin(all->player.dir)) * way_direction;
+	all->player.move.step_j = STEP_TO_WALL * cos(all->player.dir) * way_direction;
+	all->player.i += all->player.move.step_i;
+	if (all->player.move.step_i < 0)
 	{
-		all->player.i -= step_i;
-		all->player.j -= step_j;
+		limit_i = -STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+			all->player.i = (int)(all->player.i + limit_i + 1) - limit_i;
 	}
+	else if (all->player.move.step_i > 0)
+	{
+		limit_i = STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+			all->player.i = (int)(all->player.i + limit_i) - limit_i;
+	}
+	all->player.j += all->player.move.step_j;
+	if (all->player.move.step_j < 0)
+	{
+		limit_j = -STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+			all->player.j = (int)(all->player.j + limit_j + 1) - limit_j;
+	}
+	else if (all->player.move.step_j > 0)
+	{
+		limit_j = STOP_BF_WALL / 1.01;
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+			all->player.j = (int)(all->player.j + limit_j) - limit_j;
+	}
+	check_near_wall(all);
 }
 
 static void	set_position(t_all *all, char coord)
@@ -63,21 +117,19 @@ static void	set_position(t_all *all, char coord)
 	all->player.mv_check = 1;
 }
 
-int		move_player(int keycode, t_all *all)
+int		move_player(t_all *all)
 {
-	if (keycode == 53)
-		exit(0);
-	else if (keycode == 13)
+	if (all->key.w == 1)
 		set_position(all, 'w');
-	else if (keycode == 0)
+	if (all->key.a == 1)
 		set_position(all, 'a');
-	else if (keycode == 1)
+	if (all->key.s == 1)
 		set_position(all, 's');
-	else if (keycode == 2)
+	if (all->key.d == 1)
 		set_position(all, 'd');
-	else if (keycode == 124)
+	if (all->key.right == 1)
 		set_position(all, 'r');
-	else if (keycode == 123)
+	if (all->key.left == 1)
 		set_position(all, 'l');
 	return (0);
 }

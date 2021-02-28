@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   flood_fill.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
+/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/21 15:28:54 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/21 18:01:12 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/02/27 22:43:49 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,13 @@ void	flood_fill(char **map, int i, int j, t_parse *parsed)
 		parsed->error_checker = 1;
 		return ;
 	}
-	if (map[i][j] == '1' || map[i][j] == '2' || map[i][j] == '.')
+	if (map[i][j] == '2')
+	{
+		parsed->amt_spr++;
+		map[i][j] = '3';
+		return;
+	}
+	if (map[i][j] == '1' || map[i][j] == '.' || map[i][j] == '3')
 		return ;
 	if (map[i][j] == '0')
 		map[i][j] = '.';

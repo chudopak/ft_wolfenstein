@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:11:26 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/16 21:32:32 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/27 22:35:08 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ typedef struct		s_parse {
 	t_texture		texture;
 	int				error_checker;
 	t_player		p_coord;
+	int				amt_spr;
 }					t_parse;
 
 t_parse				ft_parser(char *file_nm);

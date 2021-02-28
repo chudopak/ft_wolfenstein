@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 16:47:12 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/22 22:03:35 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:39:44 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	get_ray_len(t_all *all, t_pl *ray)
 {
+	all->counter = 0;
 	ray->ray_len_hor = get_hor_ray_len(all, ray);
 	ray->ray_len_ver = get_ver_ray_len(all, ray);
 	if (ray->ray_len_hor < ray->ray_len_ver)
@@ -30,7 +31,8 @@ void	get_ray_len(t_all *all, t_pl *ray)
 
 int		draw_new_frame(t_all *all)
 {
-	t_pl	ray;
+	t_pl		ray;
+	//t_sprite	sprite[all->parsed.amt_spr];
 
 	move_player(all);
 	ray = get_ray_info(all);

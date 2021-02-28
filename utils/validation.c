@@ -6,13 +6,22 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 17:10:48 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/08 19:37:02 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/19 15:49:50 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/overall.h"
 
 //make lib with ft_printf
+
+void		validate_resalution(t_all *all)
+{
+	mlx_get_screen_size(all->vars.mlx, &all->tmpRes.screen_width, &all->tmpRes.screen_height);
+	if ((unsigned int)all->tmpRes.screen_width < all->parsed.res.width)
+		all->parsed.res.width = all->tmpRes.screen_width;
+	if ((unsigned int)all->tmpRes.screen_height < all->parsed.res.height)
+		all->parsed.res.height = all->tmpRes.screen_height;
+}
 
 static int	validate_av(char *arg, char *cub, int i)
 {
