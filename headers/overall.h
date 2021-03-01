@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:44:53 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/01 20:44:41 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/01 21:21:12 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,6 @@ typedef struct	s_spr {
 	float		i;
 	float		j;
 	float		len_till_pl;
-	float		vec_i;
-	float		vec_j;
-	float		eye_i;
-	float		eye_j;
 	float		sprite_angle;
 }				t_spr;
 
