@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 16:47:12 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/28 11:39:44 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/01 20:06:47 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	get_ray_len(t_all *all, t_pl *ray)
 int		draw_new_frame(t_all *all)
 {
 	t_pl		ray;
-	//t_sprite	sprite[all->parsed.amt_spr];
 
 	move_player(all);
 	ray = get_ray_info(all);
@@ -45,6 +44,7 @@ int		draw_new_frame(t_all *all)
 		side_wall(&ray);
 		fill_picture(all, &ray);
 	}
+	//draw_sprite(all, &ray);
 	mlx_put_image_to_window(all->vars.mlx, all->vars.win, all->img.img, 0, 0);
 	return (0);
 }

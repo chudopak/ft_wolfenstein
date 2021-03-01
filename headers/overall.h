@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:44:53 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/28 17:20:03 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/01 20:44:41 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define WALL_SCALE 2.0
 # define STEP_L_R 0.05 * VIEV_ANGLE
 
-# define TEXTURES 4
+# define TEXTURES 5
 # define STOP_BF_WALL 0.3
 
 # define LINES 48
@@ -151,8 +151,23 @@ typedef struct	s_textures {
 typedef struct	s_sprite {
 	float		i;
 	float		j;
-	float		len_to_pl;
+	float		vec_i;
+	float		vec_j;
+	float		eye_i;
+	float		eye_j;
+	float		sprite_angle;
 }				t_sprite;
+
+typedef struct	s_spr {
+	float		i;
+	float		j;
+	float		len_till_pl;
+	float		vec_i;
+	float		vec_j;
+	float		eye_i;
+	float		eye_j;
+	float		sprite_angle;
+}				t_spr;
 
 typedef struct	s_all {
 	t_data		img;
