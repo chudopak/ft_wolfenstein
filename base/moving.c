@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:49:13 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/27 22:26:08 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/01 16:37:04 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 static void	check_near_wall(t_all *all)
 {
-	if (all->parsed.map[(int)(all->player.i - STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.')
+	if (all->parsed.map[(int)(all->player.i - STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '0'
+			&& all->parsed.map[(int)(all->player.i - STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.')
 		all->player.i = (int)(all->player.i - STOP_BF_WALL / 1.01 + 1) + STOP_BF_WALL / 1.01;
-	if (all->parsed.map[(int)(all->player.i + STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.')
+	if (all->parsed.map[(int)(all->player.i + STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '0'
+			&& all->parsed.map[(int)(all->player.i + STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.')
 		all->player.i = (int)(all->player.i + STOP_BF_WALL / 1.01) - STOP_BF_WALL / 1.01;
-	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j - STOP_BF_WALL / 1.01)] != '.')
+	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j - STOP_BF_WALL / 1.01)] != '0'
+			&& all->parsed.map[(int)(all->player.i)][(int)(all->player.j - STOP_BF_WALL / 1.01)] != '.')
 		all->player.j = (int)(all->player.j - STOP_BF_WALL / 1.01 + 1) + STOP_BF_WALL / 1.01;
-	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j + STOP_BF_WALL / 1.01)] != '.')
+	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j + STOP_BF_WALL / 1.01)] != '0'
+			&& all->parsed.map[(int)(all->player.i)][(int)(all->player.j + STOP_BF_WALL / 1.01)] != '.')
 		all->player.j = (int)(all->player.j + STOP_BF_WALL / 1.01) - STOP_BF_WALL / 1.01;
 }
 
@@ -37,26 +41,30 @@ static void	mv_left_right(t_all *all, int way_direction)
 	if (all->player.move.step_i < 0)
 	{
 		limit_i = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
+				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
 			all->player.i = (int)(all->player.i + limit_i + 1) - limit_i;
 	}
 	else if (all->player.move.step_i > 0)
 	{
 		limit_i = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
+				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
 			all->player.i = (int)(all->player.i + limit_i) - limit_i;
 	}
 	all->player.j += all->player.move.step_j;
 	if (all->player.move.step_j < 0)
 	{
 		limit_j = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
+				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
 			all->player.j = (int)(all->player.j + limit_j + 1) - limit_j;
 	}
 	else if (all->player.move.step_j > 0)
 	{
 		limit_j = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
+				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
 			all->player.j = (int)(all->player.j + limit_j) - limit_j;
 	}
 	check_near_wall(all);
@@ -75,26 +83,30 @@ static void	mv_foward_back(t_all *all, int way_direction)
 	if (all->player.move.step_i < 0)
 	{
 		limit_i = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
+				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
 			all->player.i = (int)(all->player.i + limit_i + 1) - limit_i;
 	}
 	else if (all->player.move.step_i > 0)
 	{
 		limit_i = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
+		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
+				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.')
 			all->player.i = (int)(all->player.i + limit_i) - limit_i;
 	}
 	all->player.j += all->player.move.step_j;
 	if (all->player.move.step_j < 0)
 	{
 		limit_j = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
+				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
 			all->player.j = (int)(all->player.j + limit_j + 1) - limit_j;
 	}
 	else if (all->player.move.step_j > 0)
 	{
 		limit_j = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
+		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
+				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.')
 			all->player.j = (int)(all->player.j + limit_j) - limit_j;
 	}
 	check_near_wall(all);

@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 18:07:44 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/27 22:40:37 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:26:13 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int		set_player(t_all *all)
 	all->player.i = (float)all->parsed.p_coord.i;
 	all->player.j = (float)all->parsed.p_coord.j;
 	//sprite_fill(all, (int)all->player.i, (int)all->player.j, &sprite);
-	all->parsed.map[(int)(all->player.i)][(int)all->player.j] = '.';//'.'
+	all->parsed.map[(int)(all->player.i)][(int)all->player.j] = '0';//'.'
 	step_off_wall(all);
 	if (all->parsed.p_coord.start_angle == 'N')
 		all->player.dir = M_PI / 2;

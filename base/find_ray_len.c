@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 17:16:45 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/28 11:25:07 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:23:37 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ int		check_cell(t_all *all, t_raycast cell)
 			&& all->parsed.map[(int)cell.rayI][(int)cell.rayJ] != ' '
 			&& all->parsed.map[(int)cell.rayI][(int)cell.rayJ] != '\0')
 		return (0);
-	else if (all->parsed.map[(int)cell.rayI][(int)cell.rayJ] != '3')
-	{
-		
-	}
 	return (1);
 }
 

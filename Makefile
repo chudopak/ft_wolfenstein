@@ -13,7 +13,7 @@ CUB2D = ./cub2d/get_2dmap.c ./cub2d/move_player.c ./cub2d/print_map.c ./cub2d/in
 		./cub2d/player_init.c ./cub2d/auxiliary.c
 
 UTILS = ./utils/pixel_put.c ./utils/validation.c ./utils/set_player.c ./utils/encoding_decoding_colors.c \
-		./utils/get_colors.c ./utils/key_status.c
+		./utils/get_colors.c ./utils/key_status.c ./utils/get_sprites_info.c
 
 BASE = ./base/cub3d.c ./base/new_frame.c ./base/moving.c ./base/new_frame_utils.c ./base/find_ray_len.c ./base/draw_colom.c \
 		./base/load_tex.c ./base/draw_floor.c ./base/draw_ceiling.c 

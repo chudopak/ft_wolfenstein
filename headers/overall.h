@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:44:53 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/28 11:34:22 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:20:03 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,5 +201,6 @@ int				load_textures(t_all *all);
 void			draw_wall(t_all *all, t_pl *ray);
 void			draw_floor(t_all *all, t_pl *ray);
 void			draw_ceil(t_all *all, t_pl *ray);
+t_sprite		*get_sprites_info(t_all *all);
 
 #endif

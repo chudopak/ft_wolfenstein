@@ -6,7 +6,7 @@
 /*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/08 16:58:41 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/27 22:47:48 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/02/28 17:28:02 by chudapak         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int			main(int ac, char **av)
 	all.parsed = ft_parser(av[1]);
 	if ((second_validation(all)) == 1)
 		return (1);
+	all.sprite = get_sprites_info(&all);
 	if ((set_player(&all)) == 1)
 		return (1);
 	if (all.way_launch == 0)
