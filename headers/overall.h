@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   overall.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:44:53 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/01 21:21:12 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/03 20:38:31 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,7 @@ typedef struct	s_sprite {
 	float		vec_j;
 	float		eye_i;
 	float		eye_j;
+	float		ang_btw_pl_sp;
 	float		sprite_angle;
 }				t_sprite;
 
@@ -162,8 +163,26 @@ typedef struct	s_spr {
 	float		i;
 	float		j;
 	float		len_till_pl;
+	float		ang_btw_pl_sp;
 	float		sprite_angle;
 }				t_spr;
+
+typedef struct	s_spr_limits {
+	float		spr_ceiling;
+	float		spr_floor;
+	float		spr_height;
+	float		spr_width;
+	float		aspect_ratio;
+	float		mdl_spr;
+	float		row_tex;
+	float		colom_tex;
+	float		ratio_h;
+	float		ratio_w;
+	int			img_colom;
+	int			img_row;
+	int			sprite_colom;
+	int			sprite_row;
+}				t_spr_limit;
 
 typedef struct	s_all {
 	t_data		img;
@@ -213,5 +232,6 @@ void			draw_wall(t_all *all, t_pl *ray);
 void			draw_floor(t_all *all, t_pl *ray);
 void			draw_ceil(t_all *all, t_pl *ray);
 t_sprite		*get_sprites_info(t_all *all);
+void			draw_sprite(t_all *all, t_pl *ray);
 
 #endif

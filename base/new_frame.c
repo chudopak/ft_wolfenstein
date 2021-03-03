@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_frame.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 16:47:12 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/01 20:06:47 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/03 20:41:19 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,9 @@ int		draw_new_frame(t_all *all)
 		side_wall(&ray);
 		fill_picture(all, &ray);
 	}
-	//draw_sprite(all, &ray);
+	if (all->parsed.amt_spr != 0)
+		draw_sprite(all, &ray);
+	mlx_do_sync(all->vars.mlx);
 	mlx_put_image_to_window(all->vars.mlx, all->vars.win, all->img.img, 0, 0);
 	return (0);
 }

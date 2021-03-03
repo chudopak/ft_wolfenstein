@@ -1,0 +1,7 @@
+**/*.o
+**/*.a
+**/*.dSYM
+libmlx.dylib
+cub3d
+.vscode/launch.json
+.DS_Store

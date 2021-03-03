@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   new_frame_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:59:18 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/25 19:20:35 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/03 15:59:33 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,3 +243,46 @@ static void	mv_foward_back(t_all *all, int way_direction)
 		all->player.j += step_j;
 }
 + STOP_BF_WALL * way_direction
+
+static int	get_dist_seen_spr(t_all *all, t_pl *ray, t_spr **visible_spr)
+{
+	int		i;
+	int		j;
+	//double	at1;
+	//double	at2;
+
+	i = -1;
+	j = 0;
+	while (++i < all->parsed.amt_spr)
+	{
+		/*all->sprite[i].vec_i = all->sprite[i].i * ray->i + all->sprite[i].j * ray->j;
+		all->sprite[i].vec_j = sqrt(all->sprite[i].i * all->sprite[i].i + all->sprite[i].j * all->sprite[i].j)
+								+ sqrt(ray->i * ray->i + ray->j * ray->j);
+		all->sprite[i].ang_btw_pl_sp = fabs(acos(all->sprite[i].vec_i / all->sprite[i].vec_j));*/
+	//	printf("i - %f, j - %f\n", all->sprite[i].i, all->sprite[i].j);
+		all->sprite[i].vec_i = all->sprite[i].i - ray->i;
+		all->sprite[i].vec_j = all->sprite[i].j - ray->j;
+		//all->sprite[i].eye_i = cos(ray->dir);
+		//all->sprite[i].eye_j = sin(ray->dir);
+		all->sprite[i].sprite_angle = atan2(all->sprite[i].vec_i, all->sprite[i].vec_j);
+		//at2 = atan2(all->sprite[i].eye_i, all->sprite[i].eye_j);
+		//all->sprite[i].sprite_angle = at1 - at2;
+		if (all->sprite[i].sprite_angle < 0)
+			all->sprite[i].sprite_angle *= -1;
+		else if (all->sprite[i].sprite_angle >= 0)
+			all->sprite[i].sprite_angle = 2.0 * M_PI - all->sprite[i].sprite_angle;
+	//	printf("sprite_agl - %f\n", all->sprite[i].sprite_angle);
+		all->sprite[i].ang_btw_pl_sp = (all->sprite[i].sprite_angle - ray->dir) * -1;
+	//	printf("agl all - %f\n", all->sprite[i].ang_btw_pl_sp);
+		if (fabs(all->sprite[i].ang_btw_pl_sp) < VIEV_ANGLE / 2.0)
+		{
+			visible_spr[j]->ang_btw_pl_sp = all->sprite[i].ang_btw_pl_sp;
+			visible_spr[j]->len_till_pl = sqrt(all->sprite[i].vec_i * all->sprite[i].vec_i
+												+ all->sprite[i].vec_j * all->sprite[i].vec_j);
+			//printf("agl - %f, len - %f\n", visible_spr[j]->ang_btw_pl_sp, visible_spr[j]->len_till_pl);
+			j++;
+			
+		}
+	//	printf("\n\n");
+	}
+	return (j);
