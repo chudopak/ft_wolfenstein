@@ -6,7 +6,7 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:44:53 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/03 20:38:31 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/04 22:19:21 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define STEP_L_R 0.05 * VIEV_ANGLE
 
 # define TEXTURES 5
+# define FS_W_SCALE 0.7
+# define FS_H_SCALE 0.5
+
 # define STOP_BF_WALL 0.3
 
 # define LINES 48
@@ -156,7 +159,7 @@ typedef struct	s_sprite {
 	float		eye_i;
 	float		eye_j;
 	float		ang_btw_pl_sp;
-	float		sprite_angle;
+	float		spr_agl;
 }				t_sprite;
 
 typedef struct	s_spr {
@@ -170,6 +173,7 @@ typedef struct	s_spr {
 typedef struct	s_spr_limits {
 	float		spr_ceiling;
 	float		spr_floor;
+	float		spr_non_scale_height;
 	float		spr_height;
 	float		spr_width;
 	float		aspect_ratio;
@@ -182,6 +186,8 @@ typedef struct	s_spr_limits {
 	int			img_row;
 	int			sprite_colom;
 	int			sprite_row;
+	float		mv_to_bottom;
+	float		put_down;
 }				t_spr_limit;
 
 typedef struct	s_all {
@@ -232,6 +238,11 @@ void			draw_wall(t_all *all, t_pl *ray);
 void			draw_floor(t_all *all, t_pl *ray);
 void			draw_ceil(t_all *all, t_pl *ray);
 t_sprite		*get_sprites_info(t_all *all);
-void			draw_sprite(t_all *all, t_pl *ray);
+void			draw_sprite(t_all *all, t_pl *ray, float *rays);
+void			set_start_img_row(t_spr_limit *data);
+void			set_start_img_colom(t_spr_limit *data);
+void			draw_sprite_colom(t_all *all, t_spr_limit data);
+void			sprite_swap(t_spr *seen_spr, t_spr *seen_spr1);
+int				check_for_empty_pixel(t_all *all, t_spr_limit data);
 
 #endif

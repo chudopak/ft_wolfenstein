@@ -6,7 +6,7 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:59:18 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/03 15:59:33 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/04 22:34:10 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -286,3 +286,63 @@ static int	get_dist_seen_spr(t_all *all, t_pl *ray, t_spr **visible_spr)
 	//	printf("\n\n");
 	}
 	return (j);
+	
+	
+static void			paint_sprite(t_all *all, t_spr *visible_spr, int i, float *rays)
+{
+	t_spr_limit	data;
+
+	if (fabs(visible_spr[i].ang_btw_pl_sp) < (VIEV_ANGLE + 0.15) / 2.0)
+	{
+		data = calculate_sprite_parametres(all, visible_spr, i);
+		data.img_colom = (int)(data.mdl_spr + data.colom_tex - (data.spr_width / 2.0));
+		if (data.img_colom < 0)
+		{
+			data.img_colom = 0;
+			data.colom_tex = -1;
+		}
+		while (++data.colom_tex < data.spr_width)
+		{
+			data.row_tex = -1;
+			if (data.img_colom >= 0 && data.img_colom < (int)all->parsed.res.width)
+			{
+				printf("%d\n", data.img_colom);
+				if (rays[data.img_colom] >= visible_spr[i].len_till_pl)
+					while (++data.row_tex < data.spr_height)
+						if (check_for_empty_pixel(all, data))
+							draw_sprite_colom(all, data);
+				data.img_colom++;
+			}
+		}
+	}
+}
+
+
+all: start_game
+
+start_game: compile_all
+
+compile_all: $(NAME) $(LIBFT)
+	$(CC) $(FLAGS) -o $(NAME) $(LIBFT) $(MLX) $(UTILS) $(BASE) $(PARSER)
+
+2dwindow: compile_window
+
+$(NAME):
+	$(MAKE) -C minilibx_mms_20200219; \
+	cp minilibx_mms_20200219/libmlx.dylib libmlx.dylib;
+
+$(LIBFT):
+	cd libft; \
+	make; \
+
+compile_window: $(NAME) $(LIBFT)
+	$(CC) $(FLAGS) -o $(NAME) $(LIBFT) $(MLX) $(UTILS) $(CUB2D) $(PARSER)
+
+clean_libft:
+	cd libft; \
+	make fclean;
+
+clean_all: clean_libft
+	cd minilibx_mms_20200219; \
+	make clean; \
+	rm -rf $(NAME)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_ray_len.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 17:16:45 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/28 17:23:37 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:18:36 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ double	get_hor_ray_len(t_all *all, t_pl *ray)
 	double		ray_len;
 
 	if ((tan(ray->start_agl)))
-		hor.tan = 1/tan(ray->start_agl);
-	if (ray->start_agl == 2 * M_PI  || ray->start_agl == M_PI)
+		hor.tan = 1 / tan(ray->start_agl);
+	if (ray->start_agl == 2 * M_PI || ray->start_agl == M_PI)
 		return (0);
 	else if (ray->start_agl > M_PI)//looking down
 		set_hor_variebles(ray, &hor, 1);
@@ -90,9 +90,11 @@ double	get_ver_ray_len(t_all *all, t_pl *ray)
 		ver.tan = tan(ray->start_agl);
 	if (ray->start_agl == 3 * M_PI / 2 || ray->start_agl == M_PI / 2)
 		return (0);
-	else if (ray->start_agl < M_PI / 2 || ray->start_agl > 3 * M_PI / 2)//looking right
+	else if (ray->start_agl < M_PI / 2
+			|| ray->start_agl > 3 * M_PI / 2)//looking right
 		set_ver_variebles(ray, &ver, 1);
-	else if (ray->start_agl > M_PI / 2 && ray->start_agl < 3 * M_PI / 2)//looking left
+	else if (ray->start_agl > M_PI / 2
+			&& ray->start_agl < 3 * M_PI / 2)//looking left
 		set_ver_variebles(ray, &ver, 0);
 	while (!check_cell(all, ver))
 	{

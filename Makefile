@@ -1,4 +1,4 @@
-PARSER = ./parser/ft_parser.c \
+PARSER	= ./parser/ft_parser.c \
 		./parser/get_data.c \
 		./parser/ft_parse_res.c \
 		./parser/ft_parse_flor.c \
@@ -9,48 +9,50 @@ PARSER = ./parser/ft_parser.c \
 		./parser/ft_parse_map2.c \
 		./parser/flood_fill.c
 
-CUB2D = ./cub2d/get_2dmap.c ./cub2d/move_player.c ./cub2d/print_map.c ./cub2d/increase_part_wall.c \
+CUB2D	= ./cub2d/get_2dmap.c ./cub2d/move_player.c ./cub2d/print_map.c ./cub2d/increase_part_wall.c \
 		./cub2d/player_init.c ./cub2d/auxiliary.c
 
-UTILS = ./utils/pixel_put.c ./utils/validation.c ./utils/set_player.c ./utils/encoding_decoding_colors.c \
+UTILS	= ./utils/pixel_put.c ./utils/validation.c ./utils/set_player.c ./utils/encoding_decoding_colors.c \
 		./utils/get_colors.c ./utils/key_status.c ./utils/get_sprites_info.c
 
-BASE = ./base/cub3d.c ./base/new_frame.c ./base/moving.c ./base/new_frame_utils.c ./base/find_ray_len.c ./base/draw_colom.c \
-		./base/load_tex.c ./base/draw_floor.c ./base/draw_ceiling.c  ./base/draw_sprite.c
+BASE	= ./base/cub3d.c ./base/new_frame.c ./base/moving.c ./base/new_frame_utils.c ./base/find_ray_len.c ./base/draw_colom.c \
+		./base/load_tex.c ./base/draw_floor.c ./base/draw_ceiling.c  ./base/draw_sprite.c ./base/draw_sprite_utils.c
 
-FLAGS = -Wall -Wextra -Werror -g -framework OpenGL -framework Appkit
+OBJS	= $(PARSER:.c=.o) $(BASE:.c=.o) $(UTILS:.c=.o)
 
-MLX = libmlx.dylib
+FLAGS	= -Wall -Wextra -Werror -g -framework OpenGL -framework Appkit
 
-LIBFT = ./libft/libft.a
+MLX		= libmlx.dylib
 
-NAME = cub3d
+LIBFT	= ./libft/libft.a
 
-all: start_game
+NAME	= cub3d
 
-start_game: compile_all
+all: $(NAME)
 
-compile_all: $(NAME) $(LIBFT)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(FLAGS) -o $(NAME) $(LIBFT) $(MLX) $(UTILS) $(BASE) $(PARSER)
 
-2dwindow: compile_window
-
-$(NAME):
+$(MLX):
 	$(MAKE) -C minilibx_mms_20200219; \
-	cp minilibx_mms_20200219/libmlx.dylib libmlx.dylib;
+	cd minilibx_mms_20200219; \
+	mv $(MLX) ../;
 
 $(LIBFT):
-	cd libft; \
-	make; \
+	$(MAKE) -C libft
 
 compile_window: $(NAME) $(LIBFT)
 	$(CC) $(FLAGS) -o $(NAME) $(LIBFT) $(MLX) $(UTILS) $(CUB2D) $(PARSER)
 
-clean_libft:
-	cd libft; \
-	make fclean;
+clean:
+	$(MAKE) -C libft fclean; \
+	$(MAKE) -C minilibx_mms_20200219; \
+	rm -rf $(OBJS)
 
-clean_all: clean_libft
-	cd minilibx_mms_20200219; \
-	make clean; \
+fclean: clean
 	rm -rf $(NAME)
+	rm -rf $(MLX)
+
+re: fclean $(NAME)
+
+.PHONY: all clean fclean re
