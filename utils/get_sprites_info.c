@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_sprites_info.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:03:06 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/01 19:57:26 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/08 22:05:42 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_sprite	*get_sprites_info(t_all *all)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	t_sprite	*sprite;
 
 	all->counter = 0;
@@ -25,7 +25,8 @@ t_sprite	*get_sprites_info(t_all *all)
 	while (++i < all->parsed.p_coord.rows && all->counter < all->parsed.amt_spr)
 	{
 		j = 0;
-		while (all->parsed.map[i][j] != '\0' && all->counter < all->parsed.amt_spr)
+		while (all->parsed.map[i][j] != '\0'
+				&& all->counter < all->parsed.amt_spr)
 		{
 			if (all->parsed.map[i][j] == '3')
 			{

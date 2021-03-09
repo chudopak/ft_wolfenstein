@@ -6,7 +6,7 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:30:19 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/25 16:14:38 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/09 22:01:57 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static int	get_res(t_parse *parsed, char **data)
 		if (parsed->res.height <= 0)
 			return (1);
 	}
+	else
+		return (1);
 	return (0);
 }
 
@@ -54,7 +56,14 @@ int			ft_parse_res(t_parse *parsed, char **data)
 					&& (!parsed->res.width || !parsed->res.height)))
 				return (1);
 		if ((get_res(parsed, data)) == 1)
-			return (1);
+		{
+			while (**data != '\n')
+			{
+				if (**data != ' ')
+					return (1);
+				(*data)++;
+			}
+		}
 	}
 	return (0);
 }

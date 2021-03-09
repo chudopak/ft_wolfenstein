@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parser.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:11:26 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/27 22:35:08 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/09 21:05:27 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 typedef struct		s_res {
 	unsigned int	width;
 	unsigned int	height;
+	float			ratio;
 }					t_res;
 
 typedef struct		s_ceil {

@@ -6,121 +6,33 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/09 15:49:13 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/04 19:37:51 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/08 20:45:22 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/overall.h"
 
-static void	check_near_wall(t_all *all)
-{
-	if (all->parsed.map[(int)(all->player.i - STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '0'
-			&& all->parsed.map[(int)(all->player.i - STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.'
-			&& all->parsed.map[(int)(all->player.i - STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '2')
-		all->player.i = (int)(all->player.i - STOP_BF_WALL / 1.01 + 1) + STOP_BF_WALL / 1.01;
-	if (all->parsed.map[(int)(all->player.i + STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '0'
-			&& all->parsed.map[(int)(all->player.i + STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '.'
-			&& all->parsed.map[(int)(all->player.i + STOP_BF_WALL / 1.01)][(int)(all->player.j)] != '2')
-		all->player.i = (int)(all->player.i + STOP_BF_WALL / 1.01) - STOP_BF_WALL / 1.01;
-	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j - STOP_BF_WALL / 1.01)] != '0'
-			&& all->parsed.map[(int)(all->player.i)][(int)(all->player.j - STOP_BF_WALL / 1.01)] != '.'
-			&& all->parsed.map[(int)(all->player.i)][(int)(all->player.j - STOP_BF_WALL / 1.01)] != '2')
-		all->player.j = (int)(all->player.j - STOP_BF_WALL / 1.01 + 1) + STOP_BF_WALL / 1.01;
-	if (all->parsed.map[(int)(all->player.i)][(int)(all->player.j + STOP_BF_WALL / 1.01)] != '0'
-			&& all->parsed.map[(int)(all->player.i)][(int)(all->player.j + STOP_BF_WALL / 1.01)] != '.'
-			&& all->parsed.map[(int)(all->player.i)][(int)(all->player.j + STOP_BF_WALL / 1.01)] != '2')
-		all->player.j = (int)(all->player.j + STOP_BF_WALL / 1.01) - STOP_BF_WALL / 1.01;
-}
-
 static void	mv_left_right(t_all *all, int way_direction)
 {
-	float	limit_i;
-	float	limit_j;
-
-	limit_i = 0;
-	limit_j = 0;
 	all->player.move.step_i = STEP_L_R * cos(all->player.dir) * way_direction;
 	all->player.move.step_j = STEP_L_R * sin(all->player.dir) * way_direction;
 	all->player.i += all->player.move.step_i;
-	if (all->player.move.step_i < 0)
-	{
-		limit_i = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '2')
-			all->player.i = (int)(all->player.i + limit_i + 1) - limit_i;
-	}
-	else if (all->player.move.step_i > 0)
-	{
-		limit_i = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '2')
-			all->player.i = (int)(all->player.i + limit_i) - limit_i;
-	}
+	axis_i_movement(all);
 	all->player.j += all->player.move.step_j;
-	if (all->player.move.step_j < 0)
-	{
-		limit_j = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '2')
-			all->player.j = (int)(all->player.j + limit_j + 1) - limit_j;
-	}
-	else if (all->player.move.step_j > 0)
-	{
-		limit_j = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '2')
-			all->player.j = (int)(all->player.j + limit_j) - limit_j;
-	}
+	axis_j_movement(all);
 	check_near_wall(all);
 }
 
 static void	mv_foward_back(t_all *all, int way_direction)
 {
-	float	limit_i;
-	float	limit_j;
-
-	limit_i = 0;
-	limit_j = 0;
-	all->player.move.step_i = STEP_TO_WALL * (-sin(all->player.dir)) * way_direction;
-	all->player.move.step_j = STEP_TO_WALL * cos(all->player.dir) * way_direction;
+	all->player.move.step_i = STEP_TO_WALL
+			* (-sin(all->player.dir)) * way_direction;
+	all->player.move.step_j = STEP_TO_WALL
+			* cos(all->player.dir) * way_direction;
 	all->player.i += all->player.move.step_i;
-	if (all->player.move.step_i < 0)
-	{
-		limit_i = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '2')
-			all->player.i = (int)(all->player.i + limit_i + 1) - limit_i;
-	}
-	else if (all->player.move.step_i > 0)
-	{
-		limit_i = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '0'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '.'
-				&& all->parsed.map[(int)(all->player.i + limit_i)][(int)(all->player.j)] != '2')
-			all->player.i = (int)(all->player.i + limit_i) - limit_i;
-	}
+	axis_i_movement(all);
 	all->player.j += all->player.move.step_j;
-	if (all->player.move.step_j < 0)
-	{
-		limit_j = -STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '2')
-			all->player.j = (int)(all->player.j + limit_j + 1) - limit_j;
-	}
-	else if (all->player.move.step_j > 0)
-	{
-		limit_j = STOP_BF_WALL / 1.01;
-		if (all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '0'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '.'
-				&& all->parsed.map[(int)all->player.i][(int)(all->player.j + limit_j)] != '2')
-			all->player.j = (int)(all->player.j + limit_j) - limit_j;
-	}
+	axis_j_movement(all);
 	check_near_wall(all);
 }
 
@@ -141,7 +53,7 @@ static void	set_position(t_all *all, char coord)
 	all->player.mv_check = 1;
 }
 
-int		move_player(t_all *all)
+int			move_player(t_all *all)
 {
 	if (all->key.w == 1)
 		set_position(all, 'w');

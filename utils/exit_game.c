@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player_init.c                                      :+:      :+:    :+:   */
+/*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/26 17:39:28 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/02 20:11:11 by chudapak         ###   ########.fr       */
+/*   Created: 2021/03/08 21:56:34 by pmarash           #+#    #+#             */
+/*   Updated: 2021/03/09 16:35:00 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/overall.h"
-#include "cub2d.h"
 
-t_pl	player_init(t_data *img, int i, int j)
+int		exit_game(t_all *all)
 {
-	t_pl	player;
-
-	player.i = (float)i * SCALE;
-	player.j = (float)j * SCALE;
-	player.dir = ANGLE;
-	player.mv_check = 2;
-	increase_part_wall(img, player.i, player.j, PL, SCALE);
-	return (player);
+	error_exit(all, 0, "");
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pixel_put.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 15:29:38 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/19 17:37:05 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:49:12 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,5 @@ void	pixel_put(t_data *data, int width, int height, unsigned int color)
 
 double	count_len(t_raycast way, t_pl *ray)
 {
-	return (sqrt(pow(way.rayI - ray->i, 2) + pow(way.rayJ - ray->j, 2)));
+	return (sqrt(pow(way.ray_i - ray->i, 2) + pow(way.ray_j - ray->j, 2)));
 }

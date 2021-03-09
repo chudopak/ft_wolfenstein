@@ -6,7 +6,7 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/23 17:28:55 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/04 15:21:31 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/08 22:05:51 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int	load_texture(t_vars *vars, t_textures *tex, char *path)
 {
 	tex->path = path;
 	if ((tex->tex = mlx_xpm_file_to_image(vars->mlx,
-		path, &tex->tW, &tex->tH)))
+		path, &tex->t_w, &tex->t_h)))
 		tex->ptr = mlx_get_data_addr(tex->tex,
 			&tex->bpp, &tex->size_line, &tex->endian);
 	else
@@ -35,12 +35,15 @@ static int	load_texture(t_vars *vars, t_textures *tex, char *path)
 
 int			load_textures(t_all *all)
 {
-	int		i;
-
+	all->spr_free = NULL;
+	all->loaded_tex = -1;
 	paths_tex(all);
-	i = -1;
-	while (++i < TEXTURES)
-		if ((load_texture(&all->vars, &all->texture[i], all->tex_path[i])) == 1)
+	while (++(all->loaded_tex) < TEXTURES)
+		if ((load_texture(&all->vars, &all->texture[all->loaded_tex],
+				all->tex_path[all->loaded_tex])) == 1)
+		{
+			error_exit(all, 1, "error - some texture didn't loaded\n");
 			return (1);
+		}
 	return (0);
 }

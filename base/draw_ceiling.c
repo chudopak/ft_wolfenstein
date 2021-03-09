@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   draw_ceiling.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/24 21:05:05 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/24 21:05:27 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/05 20:16:30 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/overall.h"
 
-void		draw_ceil(t_all *all, t_pl *ray)
+void	draw_ceil(t_all *all, t_pl *ray)
 {
 	while (ray->string < ray->ceiling)
 	{

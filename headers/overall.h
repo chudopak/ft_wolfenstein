@@ -6,7 +6,7 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/11 17:44:53 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/04 22:19:21 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/09 21:15:58 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 # define WALL_N 0x11FFBBFF
 # define WALL_E 0x001234FF
 
-//
 # define ANGLE_MOVE 0.03
 # define VIEV_ANGLE 0.75
 
@@ -39,12 +38,13 @@
 # define STEP_L_R 0.05 * VIEV_ANGLE
 
 # define TEXTURES 5
-# define FS_W_SCALE 0.7
-# define FS_H_SCALE 0.5
+# define FS_W_SCALE 1
+# define FS_H_SCALE 1
 
 # define STOP_BF_WALL 0.3
 
 # define LINES 48
+
 typedef struct	s_data {
 	char		*addr;
 	void		*img;
@@ -60,10 +60,10 @@ typedef struct	s_vars {
 
 typedef struct	s_raycast {
 	double		tan;
-	double		rayJ;
-	double		rayI;
-	double		offsetJ;
-	double		offsetI;
+	double		ray_j;
+	double		ray_i;
+	double		offset_j;
+	double		offset_i;
 }				t_raycast;
 
 typedef struct	s_side {
@@ -81,7 +81,7 @@ typedef struct	s_move {
 	double		step_i;
 	double		step_j;
 	double		limit_i;
-	double		limit_j;		
+	double		limit_j;
 }				t_move;
 
 typedef struct	s_pl {
@@ -94,9 +94,9 @@ typedef struct	s_pl {
 	float		old_dir;
 	double		start_agl;
 	float		end;
-	int			floor;
-	int			ceiling;
-	int			wallH;
+	float		floor;
+	float		ceiling;
+	float		wall_h;
 	int			nb_tex;
 	float		step;
 	float		row_of_tex;
@@ -112,7 +112,7 @@ typedef struct	s_pl {
 	double		fish_angle;
 	double		ray_len_hor;
 	double		ray_len_ver;
-	char		rayCross;
+	char		ray_cross;
 	double		len_main_ray;
 	char		ray_hit_wall;
 	float		ray_cross_i;
@@ -141,8 +141,8 @@ typedef struct	s_keys {
 }				t_keys;
 
 typedef struct	s_textures {
-	int			tH;
-	int			tW;
+	int			t_h;
+	int			t_w;
 	char		*path;
 	void		*tex;
 	void		*ptr;
@@ -196,20 +196,22 @@ typedef struct	s_all {
 	t_pl		player;
 	t_parse		parsed;
 	int			way_launch;
-	t_tmpres	tmpRes;
+	t_tmpres	tmp_res;
 	t_colors	color;
 	t_keys		key;
 	t_textures	texture[TEXTURES];
+	int			loaded_tex;
 	char		*tex_path[5];
 	t_sprite	*sprite;
+	t_spr		*spr_free;
 	int			counter;
 }				t_all;
 
-void			pixel_put(t_data *data, int	width, int height, unsigned int color);
+void			pixel_put(t_data *data, int	width, int height,
+				unsigned int color);
 int				first_file_validation(int ac, char **av);
-int				second_validation(t_all all);
+int				second_validation(t_all *all);
 int				draw_new_frame(t_all *all);
-void		 	get_ray_len(t_all *all, t_pl *ray);
 t_pl			get_ray_info(t_all *all);
 int				set_player(t_all *all);
 double			get_ver_ray_len(t_all *all, t_pl *ray);
@@ -244,5 +246,12 @@ void			set_start_img_colom(t_spr_limit *data);
 void			draw_sprite_colom(t_all *all, t_spr_limit data);
 void			sprite_swap(t_spr *seen_spr, t_spr *seen_spr1);
 int				check_for_empty_pixel(t_all *all, t_spr_limit data);
+void			error_exit(t_all *all, int error_code, char *error_massage);
+int				create_bmp(t_all *all);
+int				check_barier(t_all *all, int i, int j);
+void			check_near_wall(t_all *all);
+void			axis_i_movement(t_all *all);
+void			axis_j_movement(t_all *all);
+int				exit_game(t_all *all);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 16:47:12 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/04 16:48:03 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/08 20:50:36 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/overall.h"
 
-void	get_ray_len(t_all *all, t_pl *ray)
+static void		get_ray_len(t_all *all, t_pl *ray)
 {
 	all->counter = 0;
 	ray->ray_len_hor = get_hor_ray_len(all, ray);
@@ -20,12 +20,12 @@ void	get_ray_len(t_all *all, t_pl *ray)
 	if (ray->ray_len_hor < ray->ray_len_ver)
 	{
 		ray->ray_len = ray->ray_len_hor;
-		ray->rayCross = 'H';
+		ray->ray_cross = 'H';
 	}
 	else
 	{
 		ray->ray_len = ray->ray_len_ver;
-		ray->rayCross = 'V';
+		ray->ray_cross = 'V';
 	}
 }
 

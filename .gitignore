@@ -3,5 +3,7 @@
 **/*.dSYM
 libmlx.dylib
 cub3d
-.vscode/launch.json
+.vscode/
 .DS_Store
+new_frame_base.c
+./cub2d/

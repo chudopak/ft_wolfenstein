@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   encoding_decoding_colors.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 16:00:20 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/19 17:02:35 by chudapak         ###   ########.fr       */
+/*   Updated: 2021/03/07 22:37:22 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		create_trgb(int t, int r, int g, int b)
 {
-	return(t << 24 | r << 16 | g << 8 | b);
+	return (t << 24 | r << 16 | g << 8 | b);
 }
 
 int		get_t(int trgb)

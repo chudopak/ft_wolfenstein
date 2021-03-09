@@ -6,13 +6,13 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/13 17:14:32 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/21 18:32:27 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/07 22:07:43 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/overall.h"
 
-static int	get_color_nb(t_parse *parsed, char **data)
+static int	assign_nb(t_parse *parsed, char **data)
 {
 	if (parsed->flor.r == -1)
 	{
@@ -32,9 +32,19 @@ static int	get_color_nb(t_parse *parsed, char **data)
 		if (parsed->flor.b < 0 || parsed->flor.b > 255)
 			return (1);
 	}
+	return (0);
+}
+
+static int	get_color_nb(t_parse *parsed, char **data)
+{
+	if (parsed->flor.r != -1 && parsed->flor.g != -1 && parsed->flor.b != -1)
+		return (1);
+	if (assign_nb(parsed, data) == 1)
+		return (1);
 	while (**data == ' ')
 		++*data;
-	if (**data == ',')
+	if ((parsed->flor.r == -1 || parsed->flor.g == -1
+			|| parsed->flor.b == -1) && **data == ',')
 		++*data;
 	return (0);
 }
