@@ -6,7 +6,7 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 18:33:55 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/27 16:31:08 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/09 22:37:44 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int			ft_parse_elements(t_parse *parsed, char **data)
 	int		error;
 
 	parsed_elements = 0;
-	error = 0;
+	error = 1;
 	while (parsed_elements < 8)
 	{
-		while (**data == ' ' || **data == '\n')
+		while (**data == '\n')
 			++*data;
 		if (**data == 'R')
 			error = ft_parse_res(parsed, data);

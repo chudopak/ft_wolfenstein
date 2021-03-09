@@ -6,7 +6,7 @@
 /*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/15 17:36:02 by pmarash           #+#    #+#             */
-/*   Updated: 2021/01/21 18:22:11 by pmarash          ###   ########.fr       */
+/*   Updated: 2021/03/09 22:43:33 by pmarash          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,17 @@ static char	*cp_dir(char **data)
 	return (dir);
 }
 
+static int	get_to_end(char **data)
+{
+	while (**data != '\n')
+	{
+		if (**data != ' ')
+			return (1);
+		(*data)++;
+	}
+	return (0);
+}
+
 static int	get_direction(t_parse *parsed, char *sow, char **data)
 {
 	char	*dir;
@@ -62,7 +73,7 @@ static int	get_direction(t_parse *parsed, char *sow, char **data)
 		parsed->texture.ea = dir;
 	else if (*sow == 'S')
 		parsed->texture.s = dir;
-	return (0);
+	return (get_to_end(data));
 }
 
 int			ft_parse_texture(t_parse *parsed, char **data)
