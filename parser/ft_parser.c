@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_parser.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 17:42:29 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/27 22:35:28 by chudapak         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 static t_parse	fill_struct(void)
@@ -39,30 +27,42 @@ static t_parse	fill_struct(void)
 	return (parsed);
 }
 
+static void		parse(t_parse *parsed, char **data)
+{
+	char	*to_free;
+
+	to_free = *data;
+	if ((parsed->error_checker = ft_parse_elements(parsed, data)) == 1)
+	{
+		free(to_free);
+		return ;
+	}
+	parsed->error_checker = ft_parse_map(parsed, data);
+	free(to_free);
+}
+
 t_parse			ft_parser(char *file_nm)
 {
 	int		fd;
 	char	*data;
-	char	*to_free;
 	t_parse parsed;
 
 	parsed = fill_struct();
 	if ((fd = open(file_nm, O_RDONLY)) == -1)
+	{
+		parsed.error_checker = 1;
 		return (parsed);
+	}
 	if (!(data = get_data(fd)))
 	{
 		parsed.error_checker = 1;
 		return (parsed);
 	}
 	if ((close(fd)) < 0)
-		return (parsed);
-	to_free = data;
-	if ((parsed.error_checker = ft_parse_elements(&parsed, &data)) == 1)
 	{
-		free(to_free);
+		parsed.error_checker = 1;
 		return (parsed);
 	}
-	parsed.error_checker = ft_parse_map(&parsed, &data);
-	free(to_free);
+	parse(&parsed, &data);
 	return (parsed);
 }

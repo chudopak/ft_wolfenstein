@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   new_frame_utils.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/19 17:15:25 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/09 21:40:05 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 float	keep_angle_in_range(float angle)
@@ -40,6 +28,8 @@ void	fix_fisheye(t_all *all, t_pl *ray)
 		ray->fish_angle -= 2 * M_PI;
 	else if (ray->fish_angle < 0)
 		ray->fish_angle += 2 * M_PI;
+	if (ray->ray_len > MAX_RAY_LEN)
+		ray->ray_len = MAX_RAY_LEN;
 	ray->ray_len *= cos(ray->fish_angle);
 }
 

@@ -1,21 +1,9 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   key_status.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/22 21:56:10 by chudapak          #+#    #+#             */
-/*   Updated: 2021/02/22 22:05:45 by chudapak         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 int		key_pressed(int keycode, t_all *all)
 {
 	if (keycode == 53)
-		exit(0);
+		exit_game(all);
 	if (keycode == 13)
 		all->key.w = 1;
 	else if (keycode == 0)

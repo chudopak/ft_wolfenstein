@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_parse_map.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: chudapak <chudapak@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/18 16:50:49 by pmarash           #+#    #+#             */
-/*   Updated: 2021/02/16 21:33:00 by chudapak         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 static int	first_validation(char *data)
@@ -19,9 +7,6 @@ static int	first_validation(char *data)
 	player = 0;
 	while (*data)
 	{
-		if (*(data - 1) == '\n')
-			if ((check_string(data)) == 1)
-				return (1);
 		if (*data == '\n' && *(data + 1) == '\n')
 			return (1);
 		else if (*data != '0' && *data != '1' && *data != '2' && *data != ' '
@@ -45,7 +30,7 @@ static int	map_start(char **data)
 
 	++*data;
 	tmp = *data;
-	while (**data == ' ' || **data == '\n')
+	while (**data == '\n')
 	{
 		if (**data == '\n')
 			tmp = *data + 1;
@@ -53,17 +38,15 @@ static int	map_start(char **data)
 	}
 	if (**data == '\0')
 		return (1);
-	else if (**data == '0' && *(*data + 1) != '1')
-		return (1);
 	*data = tmp;
 	return (0);
 }
 
-static int	get_map(t_parse *parsed, char *data, int rows)
+static int	get_map(t_parse *parsed, char *data, unsigned int rows)
 {
-	int		i;
-	int		j;
-	int		size;
+	unsigned int		i;
+	unsigned int		j;
+	unsigned int		size;
 
 	i = -1;
 	if (!(parsed->map = malloc(sizeof(char*) * rows)))
@@ -90,8 +73,8 @@ static int	get_map(t_parse *parsed, char *data, int rows)
 
 static int	allocation_map(t_parse *parsed, char **data)
 {
-	int		rows;
-	char	*tmp;
+	unsigned int		rows;
+	char				*tmp;
 
 	tmp = *data;
 	rows = 0;
@@ -117,9 +100,11 @@ int			ft_parse_map(t_parse *parsed, char **data)
 		return (1);
 	if ((allocation_map(parsed, data)) == 1)
 		return (1);
-	flood_fill(parsed->map, parsed->p_coord.i,
-			parsed->p_coord.j, parsed);
+	flood_fill(parsed->map, (int)parsed->p_coord.i,
+			(int)parsed->p_coord.j, parsed);
 	if (parsed->error_checker == 1)
+		return (1);
+	if (walidate_back_walls(parsed->map, parsed) == 1)
 		return (1);
 	return (0);
 }

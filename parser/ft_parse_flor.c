@@ -1,34 +1,22 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_parse_flor.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/13 17:14:32 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/07 22:07:43 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 static int	assign_nb(t_parse *parsed, char **data)
 {
 	if (parsed->flor.r == -1)
 	{
-		parsed->flor.r = ft_atoi_dbl_ptr(data);
+		parsed->flor.r = atoi_cub(data);
 		if (parsed->flor.r < 0 || parsed->flor.r > 255)
 			return (1);
 	}
 	else if (parsed->flor.g == -1)
 	{
-		parsed->flor.g = ft_atoi_dbl_ptr(data);
+		parsed->flor.g = atoi_cub(data);
 		if (parsed->flor.g < 0 || parsed->flor.g > 255)
 			return (1);
 	}
 	else if (parsed->flor.b == -1)
 	{
-		parsed->flor.b = ft_atoi_dbl_ptr(data);
+		parsed->flor.b = atoi_cub(data);
 		if (parsed->flor.b < 0 || parsed->flor.b > 255)
 			return (1);
 	}
@@ -43,6 +31,9 @@ static int	get_color_nb(t_parse *parsed, char **data)
 		return (1);
 	while (**data == ' ')
 		++*data;
+	if (**data != ',' && (parsed->flor.r == -1 || parsed->flor.g == -1
+			|| parsed->flor.b == -1))
+		return (1);
 	if ((parsed->flor.r == -1 || parsed->flor.g == -1
 			|| parsed->flor.b == -1) && **data == ',')
 		++*data;
@@ -56,6 +47,17 @@ static int	check_repiting(t_parse parsed)
 	if (parsed.flor.g != -1)
 		return (1);
 	if (parsed.flor.b != -1)
+		return (1);
+	return (0);
+}
+
+static int	check_empty(t_parse parsed)
+{
+	if (parsed.flor.r == -1)
+		return (1);
+	if (parsed.flor.g == -1)
+		return (1);
+	if (parsed.flor.b == -1)
 		return (1);
 	return (0);
 }
@@ -78,5 +80,7 @@ int			ft_parse_flor(t_parse *parsed, char **data)
 		if ((get_color_nb(parsed, data)) == 1)
 			return (1);
 	}
+	if (check_empty(*parsed) == 1)
+		return (1);
 	return (0);
 }

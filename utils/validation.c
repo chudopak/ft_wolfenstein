@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/08 17:10:48 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/09 21:51:08 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 void		validate_resalution(t_all *all)
@@ -82,11 +70,6 @@ int			second_validation(t_all *all)
 	if (all->parsed.error_checker == 1)
 	{
 		error_exit(all, 3, "error - smth wrong with the file\n");
-		return (1);
-	}
-	if (all->parsed.res.width < 200 || all->parsed.res.height < 200)
-	{
-		error_exit(all, 3, "choose a bigger resalution\n");
 		return (1);
 	}
 	return (0);

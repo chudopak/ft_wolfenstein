@@ -1,22 +1,15 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_parse_elements.c                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/12 18:33:55 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/09 22:37:44 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
-static int	validate_texture(t_parse *parsed)
+static int	validate(t_parse *parsed)
 {
 	if (parsed->texture.no == NULL || parsed->texture.so == NULL
 			|| parsed->texture.we == NULL
 			|| parsed->texture.s == NULL || parsed->texture.ea == NULL)
+		return (1);
+	if (parsed->res.width == 0 || parsed->res.height == 0
+			|| parsed->ceil.r == -1 || parsed->ceil.g == -1
+			|| parsed->ceil.b == -1 || parsed->flor.r == -1
+			|| parsed->flor.g == -1 || parsed->flor.b == -1)
 		return (1);
 	return (0);
 }
@@ -45,7 +38,7 @@ int			ft_parse_elements(t_parse *parsed, char **data)
 			return (1);
 		parsed_elements++;
 	}
-	if ((validate_texture(parsed)) == 1)
+	if ((validate(parsed)) == 1)
 		return (1);
 	return (0);
 }

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_sprite.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/01 20:07:01 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/09 21:52:25 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 static void			calculate_angle_btw_pl_and_spr(t_all *all, t_pl *ray, int i)
@@ -37,9 +25,9 @@ static void			calculate_angle_btw_pl_and_spr(t_all *all, t_pl *ray, int i)
 
 static t_spr		*get_dist_seen_spr(t_all *all, t_pl *ray)
 {
-	int		i;
-	int		j;
-	t_spr	*visible_spr;
+	unsigned int	i;
+	unsigned int	j;
+	t_spr			*visible_spr;
 
 	if (!(visible_spr = malloc(sizeof(t_spr) * all->parsed.amt_spr)))
 		error_exit(all, 2, "error - malloc problem in sprites");
@@ -55,8 +43,8 @@ static t_spr		*get_dist_seen_spr(t_all *all, t_pl *ray)
 			visible_spr[j].j = all->sprite[i].j;
 			visible_spr[j].ang_btw_pl_sp = all->sprite[i].ang_btw_pl_sp;
 			visible_spr[j].len_till_pl = sqrt(all->sprite[i].vec_i
-					* all->sprite[i].vec_i + all->sprite[i].vec_j
-					* all->sprite[i].vec_j);
+				* all->sprite[i].vec_i + all->sprite[i].vec_j
+				* all->sprite[i].vec_j) * cos(visible_spr[j].ang_btw_pl_sp);
 			j++;
 		}
 	}
@@ -105,7 +93,8 @@ static void			paint_sprite(t_all *all,
 				&& data.img_colom < (int)all->parsed.res.width)
 		{
 			set_start_img_row(&data);
-			if (rays[data.img_colom] >= visible_spr[i].len_till_pl)
+			if (rays[data.img_colom] >= visible_spr[i].len_till_pl
+					&& visible_spr[i].len_till_pl < (MAX_RAY_LEN / 2))
 				while (data.row_tex < data.spr_height
 						&& data.img_row < (int)all->parsed.res.height)
 				{
@@ -122,9 +111,9 @@ static void			paint_sprite(t_all *all,
 
 void				draw_sprite(t_all *all, t_pl *ray, float *rays)
 {
-	t_spr	*visible_spr;
-	int		i;
-	int		j;
+	t_spr			*visible_spr;
+	unsigned int	i;
+	unsigned int	j;
 
 	visible_spr = get_dist_seen_spr(all, ray);
 	if (all->counter != 0)

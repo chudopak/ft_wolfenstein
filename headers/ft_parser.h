@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_parser.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/11 17:11:26 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/09 21:05:27 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FT_PARSER_H
 # define FT_PARSER_H
 
@@ -40,10 +28,10 @@ typedef struct		s_texture {
 }					t_texture;
 
 typedef struct		s_player {
-	int				i;
-	int				j;
-	int				rows;
-	int				coloms;
+	unsigned int	i;
+	unsigned int	j;
+	unsigned int	rows;
+	unsigned int	coloms;
 	char			start_angle;
 }					t_player;
 
@@ -55,7 +43,7 @@ typedef struct		s_parse {
 	t_texture		texture;
 	int				error_checker;
 	t_player		p_coord;
-	int				amt_spr;
+	unsigned int	amt_spr;
 }					t_parse;
 
 t_parse				ft_parser(char *file_nm);
@@ -66,9 +54,9 @@ int					ft_parse_flor(t_parse *parsed, char **data);
 int					ft_parse_res(t_parse *parsed, char **data);
 int					ft_parse_texture(t_parse *parsed, char **data);
 int					ft_parse_map(t_parse *parsed, char **data);
-int					check_string(char *data);
 void				check_for_player(t_parse *parsed, char symb, int i, int j);
 void				flood_fill(char **map, int i, int j, t_parse *parsed);
-void				coloms_size(t_parse *parsed, int current_str_len);
+void				coloms_size(t_parse *parsed, unsigned int current_str_len);
+int					walidate_back_walls(char **map, t_parse *parsed);
 
 #endif

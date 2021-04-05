@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/05 21:54:37 by pmarash           #+#    #+#             */
-/*   Updated: 2021/03/09 16:34:46 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 static void	clear_window(t_all *all)
@@ -22,7 +10,7 @@ static void	clear_window(t_all *all)
 
 static void	clear_parsed(t_all *all)
 {
-	int		i;
+	unsigned int i;
 
 	i = -1;
 	if (all->parsed.map)
@@ -58,7 +46,7 @@ void		error_exit(t_all *all, int error_code, char *error_massage)
 {
 	if (error_massage)
 		ft_putstr(error_massage);
-	if (error_code != 0)
+	if (error_code != 5)
 		clear_window(all);
 	clear_parsed(all);
 	if (all->spr_free != NULL && error_code == 0)

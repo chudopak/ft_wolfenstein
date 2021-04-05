@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   draw_colom.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: pmarash <pmarash@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/22 17:04:52 by chudapak          #+#    #+#             */
-/*   Updated: 2021/03/09 21:52:54 by pmarash          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../headers/overall.h"
 
 static int	get_nb_texture(t_pl *ray)
@@ -72,11 +60,20 @@ void		draw_wall(t_all *all, t_pl *ray)
 
 void		fill_picture(t_all *all, t_pl *ray)
 {
-	ray->ceiling = ((float)(all->parsed.res.height / 2)
-			- ((float)all->parsed.res.height * all->parsed.res.ratio)
-			/ (ray->ray_len * WALL_SCALE));
-	ray->floor = all->parsed.res.height - ray->ceiling;
-	ray->wall_h = ray->floor - ray->ceiling;
+	if (ray->ray_len > MAX_RAY_LEN)
+	{
+		ray->ceiling = (float)(all->parsed.res.height / 2);
+		ray->floor = all->parsed.res.height - ray->ceiling;
+		ray->wall_h = ray->floor - ray->ceiling;
+	}
+	else
+	{
+		ray->ceiling = ((float)(all->parsed.res.height / 2)
+				- ((float)all->parsed.res.height * all->parsed.res.ratio)
+				/ (ray->ray_len * WALL_SCALE));
+		ray->floor = all->parsed.res.height - ray->ceiling;
+		ray->wall_h = ray->floor - ray->ceiling;
+	}
 	if ((ray->nb_tex = get_nb_texture(ray)) == -1)
 		error_exit(all, 2, "error - can't find texture");
 	ray->string = 0;
